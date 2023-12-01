@@ -38,6 +38,7 @@ def part2(lines):
 
 
 lines = read_input(1)
+print("day01")
 print(part1(lines))
 print(part2(lines))
 

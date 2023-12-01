@@ -1,16 +1,25 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+import solutions.day01.main
+import solutions.day02.main
+import solutions.day03.main
+import solutions.day04.main
+import solutions.day05.main
+import solutions.day06.main
+import solutions.day07.main
+import solutions.day08.main
+import solutions.day09.main
+import solutions.day10.main
+import solutions.day11.main
+import solutions.day12.main
+import solutions.day13.main
+import solutions.day14.main
+import solutions.day15.main
+import solutions.day16.main
+import solutions.day17.main
+import solutions.day18.main
+import solutions.day19.main
+import solutions.day20.main
+import solutions.day21.main
+import solutions.day22.main
+import solutions.day23.main
+import solutions.day24.main
+import solutions.day25.main
