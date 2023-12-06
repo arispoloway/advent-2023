@@ -58,14 +58,11 @@ def part2(lines):
                 gears[gearCoord] *= int(curNum)
     for coord, gearCount in gearCounts.items():
         if gearCount == 2:
-            print(coord)
-            print(gears[coord])
             s += gears[coord]
 
     return s
 
 
 lines = read_input(3)
-print("day03")
 print(part1(lines))
 print(part2(lines))

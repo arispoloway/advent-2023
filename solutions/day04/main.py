@@ -22,6 +22,5 @@ def part2(lines):
     return sum(copies.values())
 
 lines = read_input(4)
-print("day04")
 print(part1(lines))
 print(part2(lines))

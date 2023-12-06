@@ -51,6 +51,5 @@ def part2(lines):
 
 
 lines = read_input(2)
-print("day02")
 print(part1(lines))
 print(part2(lines))
