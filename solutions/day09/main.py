@@ -7,7 +7,7 @@ startSum = 0
 endSum = 0
 for line in lines:
     rows = [list(map(int, line.split()))]
-    while any(map(lambda x: x != 0, rows[-1])):
+    while any(x != 0 for x in rows[-1]):
         newRow = []
         for idx in range(1, len(rows[-1])):
             newRow.append(rows[-1][idx] - rows[-1][idx - 1])

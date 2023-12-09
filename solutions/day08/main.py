@@ -31,7 +31,7 @@ def part1(lines):
 def part2(lines):
     insts, graph = parse(lines)
     # This problem is pretty dumb and the solution does not work for all cases
-    return math.lcm(*map(lambda node: findZ(node, graph, insts), list(filter(lambda x: x[2] == "A", graph))))
+    return math.lcm(*map(lambda node: findZ(node, graph, insts), filter(lambda x: x[2] == "A", graph)))
 
 
 lines = read_input(8)
