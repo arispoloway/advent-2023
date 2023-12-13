@@ -35,12 +35,12 @@ def calculateExpansion(lines, expansionFactor):
     galaxies, emptyXs, emptyYs = parse(lines)
 
     s = 0
-    for g1 in galaxies:
-        for g2 in galaxies:
+    for i, g1 in enumerate(galaxies):
+        for g2 in galaxies[i + 1:]:
             s += abs(g1[0] - g2[0]) + expansionFactor * abs(emptyXs[g1[0]] - emptyXs[g2[0]])
             s += abs(g1[1] - g2[1]) + expansionFactor * abs(emptyYs[g1[1]] - emptyYs[g2[1]])
 
-    return int(s / 2)
+    return s
 
 
 def part1(lines):
