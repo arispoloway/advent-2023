@@ -15,62 +15,42 @@ def parse(lines):
     return puzzles
 
 
-def colOffsetErrors(puz, offset):
+def colOffsetErrors(puz, offset, maxErrors = 1):
     errs = 0
     for y in range(len(puz)):
         for i in range(min(len(puz[0]) - offset, offset)):
             if puz[y][offset + i] != puz[y][offset - i - 1]:
                 errs += 1
+        if errs > maxErrors:
+            return errs
     return errs
 
 
-def rowOffsetErrors(puz, offset):
+def rowOffsetErrors(puz, offset, maxErrors = 1):
     errs = 0
     for x in range(len(puz[0])):
         for i in range(min(len(puz) - offset, offset)):
             if puz[offset + i][x] != puz[offset - i - 1][x]:
                 errs += 1
+            if errs > maxErrors:
+                return errs
     return errs
 
-
-def findReflections(puz, idealErrors=0):
-    colOffset = None
-    rowOffset = None
-
+def findXReflection(puz, idealErrors=0):
     for offset in range(1, len(puz[0])):
         if colOffsetErrors(puz, offset) == idealErrors:
-            colOffset = offset
-        if colOffset is not None:
-            break
+            return offset
+    return 0
+def findYReflection(puz, idealErrors=0):
     for offset in range(1, len(puz)):
         if rowOffsetErrors(puz, offset) == idealErrors:
-            rowOffset = offset
-        if rowOffset is not None:
-            break
-    return colOffset, rowOffset
-
-
+            return offset
+    return 0
 def part1(lines):
-    puzzles = parse(lines)
-    s = 0
-    for puz in puzzles:
-        xReflect, yReflect = findReflections(puz)
-        if xReflect is not None:
-            s += xReflect
-        if yReflect is not None:
-            s += 100 * yReflect
-    return s
+    return sum(findXReflection(puz) + 100 * findYReflection(puz) for puz in parse(lines))
 
 def part2(lines):
-    puzzles = parse(lines)
-    s = 0
-    for puz in puzzles:
-        xReflect, yReflect = findReflections(puz, 1)
-        if xReflect is not None:
-            s += xReflect
-        if yReflect is not None:
-            s += 100 * yReflect
-    return s
+    return sum(findXReflection(puz, 1) + 100 * findYReflection(puz, 1) for puz in parse(lines))
 
 lines = read_input(13)
 print(part1(lines))
