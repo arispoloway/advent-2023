@@ -14,63 +14,50 @@ def parse(lines):
     return [[c for c in line] for line in lines]
 
 def roll(lines, dir=NORTH):
-    # TODO: Should be possible to do this in a smarter, faster way
     if dir == NORTH:
-        for y in range(len(lines)):
-            for x in range(len(lines[0])):
-                if lines[y][x] != SLIDING:
-                    continue
-
-                newY = y
-                for checkY in reversed(range(0, y)):
-                    if lines[checkY][x] == ".":
-                        newY = checkY
-                    else:
-                        break
-                lines[y][x] = EMPTY
-                lines[newY][x] = SLIDING
-    elif dir == SOUTH:
-        for y in reversed(range(len(lines))):
-            for x in range(len(lines[0])):
-                if lines[y][x] != SLIDING:
-                    continue
-
-                newY = y
-                for checkY in range(y+1, len(lines)):
-                    if lines[checkY][x] == ".":
-                        newY = checkY
-                    else:
-                        break
-                lines[y][x] = EMPTY
-                lines[newY][x] = SLIDING
-    elif dir == WEST:
         for x in range(len(lines[0])):
+            stones = 0
+            for y in reversed(range(len(lines))):
+                if lines[y][x] == SLIDING:
+                    stones += 1
+                elif lines[y][x] == FIXED:
+                    stones = 0
+                elif stones > 0:
+                    lines[y][x] = SLIDING
+                    lines[y+stones][x] = EMPTY
+    elif dir == SOUTH:
+        for x in range(len(lines[0])):
+            stones = 0
             for y in range(len(lines)):
-                if lines[y][x] != SLIDING:
-                    continue
-
-                newX = x
-                for checkX in reversed(range(0, x)):
-                    if lines[y][checkX] == ".":
-                        newX = checkX
-                    else:
-                        break
-                lines[y][x] = EMPTY
-                lines[y][newX] = SLIDING
+                if lines[y][x] == SLIDING:
+                    stones += 1
+                elif lines[y][x] == FIXED:
+                    stones = 0
+                elif stones > 0:
+                    lines[y][x] = SLIDING
+                    lines[y-stones][x] = EMPTY
+    elif dir == WEST:
+        for y in range(len(lines)):
+            stones = 0
+            for x in reversed(range(len(lines[0]))):
+                if lines[y][x] == SLIDING:
+                    stones += 1
+                elif lines[y][x] == FIXED:
+                    stones = 0
+                elif stones > 0:
+                    lines[y][x] = SLIDING
+                    lines[y][x+stones] = EMPTY
     elif dir == EAST:
-        for x in reversed(range(len(lines[0]))):
-            for y in range(len(lines)):
-                if lines[y][x] != SLIDING:
-                    continue
-
-                newX = x
-                for checkX in range(x+1, len(lines[0])):
-                    if lines[y][checkX] == ".":
-                        newX = checkX
-                    else:
-                        break
-                lines[y][x] = EMPTY
-                lines[y][newX] = SLIDING
+        for y in range(len(lines)):
+            stones = 0
+            for x in range(len(lines[0])):
+                if lines[y][x] == SLIDING:
+                    stones += 1
+                elif lines[y][x] == FIXED:
+                    stones = 0
+                elif stones > 0:
+                    lines[y][x] = SLIDING
+                    lines[y][x-stones] = EMPTY
 def cycle(lines):
     roll(lines, NORTH)
     roll(lines, WEST)
@@ -97,11 +84,13 @@ def hashArr(lines):
 def part2(lines):
     lines = parse(lines)
     seenAt = {}
-    for i in range(1_000_000_000):
+    for i in range(1, 1_000_000_000):
         cycle(lines)
         h = hashArr(lines)
         if h in seenAt:
-            for _ in range((1_000_000_000 - i) % (i - seenAt[h])):
+            cycleLen = i - seenAt[h]
+            while (1_000_000_000 - i) % cycleLen != 0:
+                i += 1
                 cycle(lines)
             return load(lines)
         seenAt[h] = i
