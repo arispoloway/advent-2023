@@ -3,7 +3,6 @@ from solutions.util import read_input
 
 from collections import defaultdict, OrderedDict
 
-
 def h(s):
     v = 0
     for c in s:

@@ -10,3 +10,6 @@ def read_input(day):
     if lines[-1].strip() == "":
         return lines[:-1]
     return lines
+
+def withinGrid(pos, grid):
+    return 0 <= pos[0] < len(grid[0]) and 0 <= pos[1] < len(grid)
