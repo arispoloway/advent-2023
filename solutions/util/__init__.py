@@ -13,3 +13,9 @@ def read_input(day):
 
 def withinGrid(pos, grid):
     return 0 <= pos[0] < len(grid[0]) and 0 <= pos[1] < len(grid)
+
+def move(pos, direction):
+    x, y = pos
+    dx, dy = direction
+    return x + dx, y + dy
+
